@@ -3,9 +3,9 @@
 // Constants
 let basePrice = 10;
 let ingredients = {
-  pepperoni: { name: 'pepperoni', price: 1 },
+  pepperoni: { name: 'Pepperoni', price: 1 },
   mushrooms: { name: 'Mushrooms', price: 1 },
-  greenPeppers: { name: 'Green Peppers', price: 1 },
+  greenPeppers: { name: 'Green peppers', price: 1 },
   whiteSauce: { name: 'White sauce', price: 3 },
   glutenFreeCrust: { name: 'Gluten-free crust', price: 5 }
 };
@@ -96,19 +96,6 @@ function renderButtons() {
   // document.querySelectorAll('.btn')[0].classList.toggle('active');
 
 
-  // MY SOLUTION
-
-//   document.querySelectorAll('button').forEach(btn => {
-//     if (btn.classList.contains('active')) {
-//       btn.classList.remove('active');
-//       console.log(document.querySelectorAll('button.btn') + 'i am in if')
-//     } else {
-//       btn.classList.add('active');
-//       console.log(document.querySelectorAll('button.btn') + 'i am in else')
-//     }
-//   });
-// 
-
   // FRANCESCO'S SOLUTION
 
   document.querySelectorAll('.btn.btn-pepperoni').forEach($btn => {
@@ -153,40 +140,54 @@ document.querySelectorAll('.btn.btn-crust').forEach($btn => {
 }
 
 
- let $totalPrice = 0
- console.log($totalPrice)
-
 
 function renderPrice() {
   // Iteration 4: change the HTML of `<aside class="panel price">`
 
-  //use toggle?
-
-  //document.querySelectorAll('aside li')[0].style.visibility = 'hidden';
-
-  if (state.pepperoni && document.querySelector('.pepperoni-price')) {
-    console.log('pepperoni-price is already there')
-  } else if (state.pepperoni && !document.querySelector('.pepperoni-price')) {
-    let newPepperoniLi = document.querySelectorAll('aside li')[0].cloneNode(true)
-    document.querySelector('aside ul').appendChild(newPepperoniLi)
-    newPepperoniLi.innerHTML = "$1 pepperoni"
-    newPepperoniLi.classList.add('pepperoni-price');
-    $totalPrice += Number(document.querySelector('.totalPrice').innerText) + 1
-    document.querySelector('.totalPrice').innerText = $totalPrice
-  } else {
-    document.querySelector('.pepperoni-price').remove()
-    $totalPrice += Number(document.querySelector('.totalPrice').innerText) - 1
-    document.querySelector('.totalPrice').innerText = $totalPrice
-  }
+  // Clears the price list each time a button is clicked
+  let priceList = document.querySelector('.panel.price ul')
+  priceList.innerHTML = ""
+  console.log(priceList)
+  let totalPrice = 10
+  let totalPriceEl = document.querySelector('.panel.price strong')
 
 
-  // using visibility
-  // if (state.mushrooms) {
-  //   document.querySelector('.mushrooms-price').style.visibility = 'visible';
-  // } else {
-  //   document.querySelector('.mushrooms-price').style.visibility = 'hidden';
-  // }
+  if (state.pepperoni) {
+    let listItem = document.createElement('li')
+    listItem.innerHTML = `$${ingredients.pepperoni.price} ${ingredients.pepperoni.name} `
+    priceList.appendChild(listItem)
+    totalPrice += ingredients.pepperoni.price
+  } 
 
+  if (state.mushrooms) {
+    let listItem = document.createElement('li')
+    listItem.innerHTML = `$${ingredients.mushrooms.price} ${ingredients.mushrooms.name} `
+    priceList.appendChild(listItem)
+    totalPrice += ingredients.mushrooms.price
+  } 
+
+  if (state.greenPeppers) {
+    let listItem = document.createElement('li')
+    listItem.innerHTML = `$${ingredients.greenPeppers.price} ${ingredients.greenPeppers.name} `
+    priceList.appendChild(listItem)
+    totalPrice += ingredients.greenPeppers.price
+  } 
+
+  if (state.whiteSauce) {
+    let listItem = document.createElement('li')
+    listItem.innerHTML = `$${ingredients.whiteSauce.price} ${ingredients.whiteSauce.name} `
+    priceList.appendChild(listItem)
+    totalPrice += ingredients.whiteSauce.price
+  } 
+
+  if (state.glutenFreeCrust) {
+    let listItem = document.createElement('li')
+    listItem.innerHTML = `$${ingredients.glutenFreeCrust.price} ${ingredients.glutenFreeCrust.name} `
+    priceList.appendChild(listItem)
+    totalPrice += ingredients.glutenFreeCrust.price
+  } 
+
+  totalPriceEl.innerHTML = totalPrice
 
 }
 
